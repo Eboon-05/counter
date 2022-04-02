@@ -5,9 +5,6 @@ import { Provider } from 'react-redux'
 
 import { store } from './redux/store'
 
-// Styles
-import 'bulma/css/bulma.min.css'
-
 // Routes
 import { Home } from './routes/Home'
 

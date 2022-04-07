@@ -11,6 +11,7 @@ specifiers:
   eslint: ^8.12.0
   eslint-plugin-react: ^7.29.4
   postcss: ^8.4.12
+  postcss-scss: ^4.0.3
   prop-types: '>=15.6.0'
   react: ^17.0.2
   react-dom: ^17.0.2
@@ -41,6 +42,7 @@ devDependencies:
   eslint: 8.12.0
   eslint-plugin-react: 7.29.4_eslint@8.12.0
   postcss: 8.4.12
+  postcss-scss: 4.0.3_postcss@8.4.12
   sass: 1.49.11
   tailwindcss: 3.0.23_autoprefixer@10.4.4
   typescript: 4.6.2
@@ -1959,6 +1961,15 @@ packages:
     dependencies:
       postcss: 8.4.12
       postcss-selector-parser: 6.0.10
+    dev: true
+
+  /postcss-scss/4.0.3_postcss@8.4.12:
+    resolution: {integrity: sha512-j4KxzWovfdHsyxwl1BxkUal/O4uirvHgdzMKS1aWJBAV0qh2qj5qAZqpeBfVUYGWv+4iK9Az7SPyZ4fyNju1uA==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.3.3
+    dependencies:
+      postcss: 8.4.12
     dev: true
 
   /postcss-selector-parser/6.0.10:

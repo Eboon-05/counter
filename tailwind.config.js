@@ -1,10 +1,12 @@
+// eslint-disable-next-line no-undef
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+	content: [
+		'./index.html',
+		'./dist/index.html',
+		'./src/**/*.{ts,tsx,js,jsx}',
+	],
+	theme: {
+		extend: {},
+	},
+	plugins: [],
 }

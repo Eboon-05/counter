@@ -1,4 +1,4 @@
-import { Reducer } from "redux"
+import { Reducer } from 'redux'
 
 // INTERFACES
 
@@ -20,77 +20,78 @@ export interface CountAction {
 // INITIAL STATE
 
 if (!localStorage.counts) {
-    updateCounts([
-        {
-            name: 'Initial',
-            value: 0
-        }
-    ])
+	updateCounts([
+		{
+			name: 'Initial',
+			value: 0
+		}
+	])
 }
 
 const initialState = {
-    counts: JSON.parse(localStorage.counts) || [],
-    count: JSON.parse(localStorage.counts)[0] || undefined
+	counts: JSON.parse(localStorage.counts) || [],
+	count: JSON.parse(localStorage.counts)[0] || undefined
 }
 
 // FUNCTIONS
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isCount (data: any): data is Count {
-    return ('name' in data && 'value' in data)
+	return ('name' in data && 'value' in data)
 }
 
 function updateCounts (newCounts: Count[]) {
-    console.log(`Updating counts...`)    
-    localStorage.setItem('counts', JSON.stringify(newCounts))
+	console.log('Updating counts...')    
+	localStorage.setItem('counts', JSON.stringify(newCounts))
 }
 
 export const countReducer: Reducer<CountState, CountAction> = (
-    state = initialState,
-    action
+	state = initialState,
+	action
 ) => {
-    switch (action.type) {
-        case 'ADD_COUNT':
-            if (isCount(action.payload)) {
-                const newCounts = {
-                    ...state,
-                    counts: [
-                        ...state.counts,
-                        action.payload
-                    ]
-                }
+	switch (action.type) {
+	case 'ADD_COUNT':
+		if (isCount(action.payload)) {
+			const newCounts = {
+				...state,
+				counts: [
+					...state.counts,
+					action.payload
+				]
+			}
 
-                updateCounts(newCounts.counts)
+			updateCounts(newCounts.counts)
                 
-                return newCounts
-            }
+			return newCounts
+		}
 
-            console.error(`action.payload is not a Count`)
-            return state
+		console.error('action.payload is not a Count')
+		return state
 
-        case 'SET_COUNTS':
-            if (Array.isArray(action.payload)) {
+	case 'SET_COUNTS':
+		if (Array.isArray(action.payload)) {
 
-                updateCounts(action.payload)
+			updateCounts(action.payload)
 
-                return {
-                    ...state,
-                    counts: action.payload
-                }
-            }
+			return {
+				...state,
+				counts: action.payload
+			}
+		}
 
-            console.error(`action.payload is not a Count array`)
-            return state
-        case 'SET_COUNT':
-            if (isCount(action.payload)) {
-                return {
-                    ...state,
-                    count: action.payload
-                }
-            }
+		console.error('action.payload is not a Count array')
+		return state
+	case 'SET_COUNT':
+		if (isCount(action.payload)) {
+			return {
+				...state,
+				count: action.payload
+			}
+		}
 
-            console.error(`action.payload is not a Count`)
-            return state
-        default:
-            return state
-    }
+		console.error('action.payload is not a Count')
+		return state
+	default:
+		return state
+	}
 }

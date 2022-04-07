@@ -12,14 +12,14 @@ import './styles/main.scss'
 import { Home } from './routes/Home'
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <Router>
-                <Routes>
-                    <Route path='/' element={<Home />} />
-                </Routes>
-            </Router>
-        </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
+	<React.StrictMode>
+		<Provider store={store}>
+			<Router>
+				<Routes>
+					<Route path='/' element={<Home />} />
+				</Routes>
+			</Router>
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById('root')
 )

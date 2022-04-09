@@ -13,7 +13,7 @@ export interface CountState {
 }
 
 export interface CountAction {
-    type: 'ADD_COUNT' | 'SET_COUNTS' | 'SET_COUNT',
+    type: 'ADD_COUNT' | 'SET_COUNTS' | 'SET_COUNT' | 'UPDATE_COUNT',
     payload: Count | Count[],
 }
 
@@ -52,7 +52,14 @@ export const countReducer: Reducer<CountState, CountAction> = (
 	switch (action.type) {
 	case 'ADD_COUNT':
 		if (isCount(action.payload)) {
-			const newCounts = {
+			const payload = action.payload as Count
+
+			if (state.counts.filter(c => c.name === payload.name).length) {
+				console.error('That count already exists!')
+				return state
+			}
+
+			const newState = {
 				...state,
 				counts: [
 					...state.counts,
@@ -60,9 +67,9 @@ export const countReducer: Reducer<CountState, CountAction> = (
 				]
 			}
 
-			updateCounts(newCounts.counts)
+			updateCounts(newState.counts)
                 
-			return newCounts
+			return newState
 		}
 
 		console.error('action.payload is not a Count')
@@ -90,6 +97,37 @@ export const countReducer: Reducer<CountState, CountAction> = (
 		}
 
 		console.error('action.payload is not a Count')
+		return state
+	case 'UPDATE_COUNT':
+		if (isCount(action.payload)) {
+			const payload = action.payload as Count
+
+			const filtered = state.counts.filter(c => c.name === payload.name)
+
+			if (!filtered.length) {
+				console.error('That count does not exist!')
+				return state
+			}
+
+			const newCounts = [ ...state.counts ]
+			const i = newCounts.indexOf(filtered[0])
+
+			if (i === -1) {
+				console.error('For some reason, the filtered element is not in newCounts')				
+				return state
+			}
+
+			newCounts[i] = action.payload
+
+			updateCounts(newCounts)
+			
+			return {
+				...state,
+				counts: newCounts,
+				count: action.payload
+			}
+		}
+
 		return state
 	default:
 		return state

@@ -5,11 +5,6 @@ import { CountState } from '../redux/reducers/count'
 // Icons
 import { ChevronUpIcon, PlusIcon, CollectionIcon } from '@heroicons/react/solid'
 
-const links = [
-    { name: 'Home', to: '/' },
-    { name: 'Counts', to: '/c/0' },
-]
-
 function Header() {
     const [active, setActive] = useState<boolean>(false)
     const counts = useSelector<CountState, CountState['counts']>(state => state.counts)

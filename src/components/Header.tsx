@@ -11,7 +11,8 @@ function Header() {
     const [active, setActive] = useState<boolean>(false)
     const counts = useSelector<CountState, CountState['counts']>(state => state.counts)
 
-	const [searchParams, setSearchParams] = useSearchParams()
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [__, setSearchParams] = useSearchParams()
 
     const toggleActive = () => setActive(!active)
 
@@ -54,7 +55,7 @@ function Header() {
                             <span className='text-black bg-white rounded-md px-2 text-center'>
                                 {c.value}
                             </span>
-                            
+
                         </li>)}
                     </ul>
                 </li>

@@ -1,6 +1,9 @@
-import React, { useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+
 import { Dispatch } from 'redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { CountAction, CountState } from '../redux/reducers/count'
 
 // Icons
@@ -9,10 +12,14 @@ import { PlusIcon, MinusIcon } from '@heroicons/react/solid'
 // Components
 import { Button } from '../components/Button'
 import { Message } from '../components/Message'
+import { Header } from '../components/Header'
 
 function Home() {
 	const count = useSelector<CountState, CountState['count']>(state => state.count)
+	const counts = useSelector<CountState, CountState['counts']>(state => state.counts)
 	const dispatch: Dispatch<CountAction> = useDispatch()
+
+	const [searchParams, setSearchParams] = useSearchParams()
 
 	const [error, setError] = useState<string|false>(false)
 
@@ -62,7 +69,23 @@ function Home() {
 		}
 	}
 
+	useEffect(() => {
+		if (counts.length > 0) {
+			const id = parseInt(searchParams.get('count') || '')
+
+			if (!Number.isNaN(id) && counts[id]) {
+				dispatch({
+					type: 'SET_COUNT',
+					payload: counts[id]
+				})
+			} else {
+				setSearchParams({ count: '0' })
+			}
+		}
+	}, [searchParams])
+
 	return (<div>
+		<Header />
 		{count && <div className='bg-slate-200/40 m-2 p-2 rounded-lg text-white shadow-md
 		grid grid-cols-1 gap-2
 		min-h-[70vh] max-h-[90vh]'>

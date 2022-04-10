@@ -30,7 +30,7 @@ if (!localStorage.counts) {
 
 const initialState = {
 	counts: JSON.parse(localStorage.counts) || [],
-	count: JSON.parse(localStorage.counts)[0] || undefined
+	// count: JSON.parse(localStorage.counts)[0] || undefined
 }
 
 // FUNCTIONS

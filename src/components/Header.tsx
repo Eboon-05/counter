@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+
 import { useSelector } from 'react-redux'
 import { CountState } from '../redux/reducers/count'
 
@@ -8,6 +10,8 @@ import { ChevronUpIcon, PlusIcon, CollectionIcon } from '@heroicons/react/solid'
 function Header() {
     const [active, setActive] = useState<boolean>(false)
     const counts = useSelector<CountState, CountState['counts']>(state => state.counts)
+
+	const [searchParams, setSearchParams] = useSearchParams()
 
     const toggleActive = () => setActive(!active)
 
@@ -39,12 +43,18 @@ function Header() {
                     </div>
                     <ul className='list-disc'>
                         {counts.map((c, i) => <li key={i}
+                        onClick={() => {
+                            setSearchParams({ count: `${i}` })
+                            setActive(false)
+                        }}
                         className='cursor-pointer mb-2 -mx-1 p-1 flex justify-between
                         hover:bg-slate-200/50 transition-all duration-500'>
+
                             <span>{c.name}</span>
                             <span className='text-black bg-white rounded-md px-2 text-center'>
                                 {c.value}
                             </span>
+                            
                         </li>)}
                     </ul>
                 </li>

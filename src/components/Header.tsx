@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { useSelector } from 'react-redux'
 import { CountState } from '../redux/reducers/count'
@@ -33,9 +33,11 @@ function Header() {
                 className={`m-auto h-[6vh] ${active && 'rotate-180'} transition-transform`} />
             </div>
             <ul className='flex flex-col justify-center h-full px-3'>
-                <li className={liClasses} onClick={() => prompt('New count name')}>
-                    <PlusIcon className='mr-2 h-5' />
-                    Create a new count
+                <li className={liClasses}>
+                    <Link to='/new' className='flex items-center'>
+                        <PlusIcon className='mr-2 h-5' />
+                        Create a new count
+                    </Link>
                 </li>
                 <li className='bg-slate-400/30 rounded-lg -mx-1 px-1'>
                     <div className='flex justify-start items-center mb-2'>

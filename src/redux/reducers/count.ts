@@ -64,7 +64,8 @@ export const countReducer: Reducer<CountState, CountAction> = (
 				counts: [
 					...state.counts,
 					action.payload
-				]
+				],
+				count: action.payload
 			}
 
 			updateCounts(newState.counts)

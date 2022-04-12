@@ -13,7 +13,7 @@ export interface CountState {
 }
 
 export interface CountAction {
-    type: 'ADD_COUNT' | 'SET_COUNTS' | 'SET_COUNT' | 'UPDATE_COUNT',
+    type: 'ADD_COUNT' | 'SET_COUNTS' | 'SET_COUNT' | 'UPDATE_COUNT' | 'DELETE_COUNT',
     payload: Count | Count[],
 }
 
@@ -75,7 +75,6 @@ export const countReducer: Reducer<CountState, CountAction> = (
 
 		console.error('action.payload is not a Count')
 		return state
-
 	case 'SET_COUNTS':
 		if (Array.isArray(action.payload)) {
 
@@ -129,6 +128,28 @@ export const countReducer: Reducer<CountState, CountAction> = (
 			}
 		}
 
+		return state
+	case 'DELETE_COUNT':
+		if (isCount(action.payload)) {
+			let i: number = state.counts.indexOf(action.payload)
+
+			if (i > 0) {
+				i--
+			} else {
+				i = 0
+			}
+
+			const filtered = state.counts.filter(c => c !== action.payload)
+
+			updateCounts(filtered)
+
+			return {
+				...state,
+				counts: filtered,
+				count: filtered[i]
+			}
+		}
+	
 		return state
 	default:
 		return state

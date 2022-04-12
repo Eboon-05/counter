@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CountAction, CountState } from '../redux/reducers/count'
 
 // Icons
-import { PlusIcon, MinusIcon } from '@heroicons/react/solid'
+import { PlusIcon, MinusIcon, TrashIcon } from '@heroicons/react/solid'
 
 // Components
 import { Button } from '../components/Button'
@@ -70,6 +70,15 @@ function Home() {
 		}
 	}
 
+	const deleteCount = () => {
+		if (count) {
+			dispatch({
+				type: 'DELETE_COUNT',
+				payload: count
+			})
+		}
+	}
+
 	useEffect(() => {
 		if (counts.length > 0) {
 			const id = parseInt(searchParams.get('count') || '')
@@ -103,6 +112,11 @@ function Home() {
 				<Button className='h-12' onClick={() => handleSub(1)} type='primary'>
 					<MinusIcon className='h-5 mx-auto' />
 				</Button>
+				{counts.length > 1 && <Button className='h-12' type='danger'
+				onClick={deleteCount}>
+						<TrashIcon className='h-5 mx-auto' />
+					</Button>
+				}
 			</div>
 
 			<div className='flex flex-col mt-2'>

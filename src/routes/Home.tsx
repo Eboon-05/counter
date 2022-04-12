@@ -13,6 +13,7 @@ import { PlusIcon, MinusIcon } from '@heroicons/react/solid'
 import { Button } from '../components/Button'
 import { Message } from '../components/Message'
 import { Header } from '../components/Header'
+import { Input } from '../components/Input'
 
 function Home() {
 	const count = useSelector<CountState, CountState['count']>(state => state.count)
@@ -107,11 +108,7 @@ function Home() {
 			<div className='flex flex-col mt-2'>
 				<span className='font-mono'>Custom value</span>
 
-				<input ref={num} type="number" id="custom" placeholder='Value'
-				className='outline-none p-3 pb-1 mb-2 border-solid border-white/30 border-b-2 
-				transition duration-500 placeholder:text-slate-100/90 placeholder:font-mono
-				bg-transparent text-white
-				focus:border-white'/>
+				<Input ref={num} className='mb-2' type="number" placeholder='Value' />
 
 				{error && <Message className='mb-2' onClose={setError} title='' description={error} type='error' />}
 

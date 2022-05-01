@@ -14,6 +14,7 @@ import { Button } from '../components/Button'
 import { Message } from '../components/Message'
 import { Header } from '../components/Header'
 import { Input } from '../components/Input'
+import { CountName } from '../components/CountName'
 
 function Home() {
 	const count = useSelector<CountState, CountState['count']>(state => state.count)
@@ -99,9 +100,7 @@ function Home() {
 		{count && <div className='bg-slate-200/40 m-2 p-2 rounded-lg text-white shadow-md
 		grid grid-cols-1 gap-2
 		min-h-[70vh] max-h-[90vh]'>
-			<h1 className="text-3xl font-semibold">
-				{count.name}
-			</h1>
+			<CountName />
 			<h1 className='text-5xl text-center font-black'>
 				{count.value}
 			</h1>

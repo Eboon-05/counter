@@ -15,6 +15,7 @@ import { Message } from '../components/Message'
 import { Header } from '../components/Header'
 import { Input } from '../components/Input'
 import { CountName } from '../components/CountName'
+import { CountValue } from '../components/CountValue'
 
 function Home() {
 	const count = useSelector<CountState, CountState['count']>(state => state.count)
@@ -101,9 +102,9 @@ function Home() {
 		grid grid-cols-1 gap-2
 		min-h-[70vh] max-h-[90vh]'>
 			<CountName />
-			<h1 className='text-5xl text-center font-black'>
-				{count.value}
-			</h1>
+
+			<CountValue />
+
 			<div className='grid gap-2 grid-rows-2 sm:grid-rows-1 sm:grid-cols-2'>
 				<Button className='sm:order-2 h-12' onClick={() => handleSum(1)} type='primary'>
 					<PlusIcon className='h-5 mx-auto' />

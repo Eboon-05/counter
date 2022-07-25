@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactNode } from 'react'
+import { MouseEventHandler, ReactNode } from 'react'
 
 interface Props {
     type: 'primary' | 'danger',
@@ -9,14 +9,14 @@ interface Props {
 }
 
 function Button(props: Props) {
-    const {
-        type,
-        onClick,
-        className,
-        disabled
-    } = props
+	const {
+		type,
+		onClick,
+		className,
+		disabled
+	} = props
 
-    return (<button className={`
+	return (<button className={`
         p-2 font-semibold
         flex items-center justify-center
 
@@ -30,8 +30,8 @@ function Button(props: Props) {
         
         ${className}
     `} disabled={disabled} onClick={onClick} >
-        {props.children}
-    </button>)
+		{props.children}
+	</button>)
 }
 
 export { Button }

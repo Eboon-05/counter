@@ -59,129 +59,129 @@ export const countReducer: Reducer<CountState, CountAction> = (
 	action
 ) => {
 	switch (action.type) {
-		case 'ADD_COUNT':
-			if (isCount(action.payload)) {
-				const payload = action.payload as Count
+	case 'ADD_COUNT':
+		if (isCount(action.payload)) {
+			const payload = action.payload as Count
 
-				if (state.counts.filter(c => c.name === payload.name).length) {
-					console.error('That count already exists!')
-					return state
-				}
+			if (state.counts.filter(c => c.name === payload.name).length) {
+				console.error('That count already exists!')
+				return state
+			}
 
-				const newState = {
-					...state,
-					counts: [
-						...state.counts,
-						action.payload
-					],
-					count: action.payload
-				}
+			const newState = {
+				...state,
+				counts: [
+					...state.counts,
+					action.payload
+				],
+				count: action.payload
+			}
 
-				updateCounts(newState.counts)
+			updateCounts(newState.counts)
 					
-				return newState
-			}
-
-			console.error('action.payload is not a Count')
-			return state
-		case 'SET_COUNTS':
-			if (Array.isArray(action.payload)) {
-
-				updateCounts(action.payload)
-
-				return {
-					...state,
-					counts: action.payload
-				}
-			}
-
-			console.error('action.payload is not a Count array')
-			return state
-		case 'SET_COUNT':
-			if (isCount(action.payload)) {
-				return {
-					...state,
-					count: action.payload
-				}
-			}
-
-			console.error('action.payload is not a Count')
-			return state
-		case 'UPDATE_COUNT':			
-			if (isCount(action.payload)) {
-				const payload = action.payload as Count
-
-				const filtered = state.counts.filter(c => c.name === payload.name)
-
-				if (!filtered.length) {
-					console.error('That count does not exist!')
-					return state
-				}
-
-				const newCounts = [ ...state.counts ]
-				const i = newCounts.indexOf(filtered[0])
-
-				if (i === -1) {
-					console.error('For some reason, the filtered element is not in newCounts')				
-					return state
-				}
-
-				newCounts[i] = action.payload
-
-				updateCounts(newCounts)
-				
-				return {
-					...state,
-					counts: newCounts,
-					count: action.payload
-				}
-			} else if (isUpdate(action.payload)) {
-				const {
-					i,
-					data
-				} = action.payload
-
-				if (i === -1) {
-					console.error('Index is not valid (UPDATE_COUNT)')					
-					return state
-				}
-
-				const newCounts = [...state.counts]				
-				newCounts[i] = data
-
-				updateCounts(newCounts)
-
-				return {
-					...state,
-					counts: newCounts,
-					count: data
-				}
-			}
-
-			return state
-		case 'DELETE_COUNT':
-			if (isCount(action.payload)) {
-				let i: number = state.counts.indexOf(action.payload)
-
-				if (i > 0) {
-					i--
-				} else {
-					i = 0
-				}
-
-				const filtered = state.counts.filter(c => c !== action.payload)
-
-				updateCounts(filtered)
-
-				return {
-					...state,
-					counts: filtered,
-					count: filtered[i]
-				}
-			}
-		
-			return state
-		default:
-			return state
+			return newState
 		}
+
+		console.error('action.payload is not a Count')
+		return state
+	case 'SET_COUNTS':
+		if (Array.isArray(action.payload)) {
+
+			updateCounts(action.payload)
+
+			return {
+				...state,
+				counts: action.payload
+			}
+		}
+
+		console.error('action.payload is not a Count array')
+		return state
+	case 'SET_COUNT':
+		if (isCount(action.payload)) {
+			return {
+				...state,
+				count: action.payload
+			}
+		}
+
+		console.error('action.payload is not a Count')
+		return state
+	case 'UPDATE_COUNT':			
+		if (isCount(action.payload)) {
+			const payload = action.payload as Count
+
+			const filtered = state.counts.filter(c => c.name === payload.name)
+
+			if (!filtered.length) {
+				console.error('That count does not exist!')
+				return state
+			}
+
+			const newCounts = [ ...state.counts ]
+			const i = newCounts.indexOf(filtered[0])
+
+			if (i === -1) {
+				console.error('For some reason, the filtered element is not in newCounts')				
+				return state
+			}
+
+			newCounts[i] = action.payload
+
+			updateCounts(newCounts)
+				
+			return {
+				...state,
+				counts: newCounts,
+				count: action.payload
+			}
+		} else if (isUpdate(action.payload)) {
+			const {
+				i,
+				data
+			} = action.payload
+
+			if (i === -1) {
+				console.error('Index is not valid (UPDATE_COUNT)')					
+				return state
+			}
+
+			const newCounts = [...state.counts]				
+			newCounts[i] = data
+
+			updateCounts(newCounts)
+
+			return {
+				...state,
+				counts: newCounts,
+				count: data
+			}
+		}
+
+		return state
+	case 'DELETE_COUNT':
+		if (isCount(action.payload)) {
+			let i: number = state.counts.indexOf(action.payload)
+
+			if (i > 0) {
+				i--
+			} else {
+				i = 0
+			}
+
+			const filtered = state.counts.filter(c => c !== action.payload)
+
+			updateCounts(filtered)
+
+			return {
+				...state,
+				counts: filtered,
+				count: filtered[i]
+			}
+		}
+		
+		return state
+	default:
+		return state
+	}
 }

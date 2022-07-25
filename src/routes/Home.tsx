@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { Dispatch } from 'redux'
@@ -58,10 +58,10 @@ function Home() {
 
 			if (value) {
 				switch (type) {
-					case 'sum':
-						return handleSum(value)
-					case 'sub':
-						return handleSub(value)
+				case 'sum':
+					return handleSum(value)
+				case 'sub':
+					return handleSub(value)
 				}
 			} else {
 				setError('The value provided is not a number or is 0')		
@@ -113,9 +113,9 @@ function Home() {
 					<MinusIcon className='h-5 mx-auto' />
 				</Button>
 				{counts.length > 1 && <Button className='h-12' type='danger'
-				onClick={deleteCount}>
-						<TrashIcon className='h-5 mx-auto' />
-					</Button>
+					onClick={deleteCount}>
+					<TrashIcon className='h-5 mx-auto' />
+				</Button>
 				}
 			</div>
 
@@ -128,11 +128,11 @@ function Home() {
 
 				<div className='grid gap-2 grid-rows-2 sm:grid-rows-1 sm:grid-cols-2'>
 					<Button className='sm:order-2 h-12' type='primary'
-					onClick={() => handleCustom('sum')}>
+						onClick={() => handleCustom('sum')}>
 						<PlusIcon className='h-5 mx-auto' />
 					</Button>
 					<Button className='h-12' type='primary'
-					onClick={() => handleCustom('sub')}>
+						onClick={() => handleCustom('sub')}>
 						<MinusIcon className='h-5 mx-auto' />
 					</Button>
 				</div>

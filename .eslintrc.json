@@ -6,6 +6,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
         "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -32,6 +33,7 @@
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "indent": ["error", "tab"]
     }
 }

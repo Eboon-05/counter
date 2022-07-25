@@ -25,163 +25,163 @@ export interface CountAction {
 // INITIAL STATE
 
 if (!localStorage.counts) {
-	updateCounts([
-		{
-			name: 'Initial',
-			value: 0
-		}
-	])
+        updateCounts([
+                {
+                        name: 'Initial',
+                        value: 0
+                }
+        ])
 }
 
 const initialState = {
-	counts: JSON.parse(localStorage.counts) || [],
-	// count: JSON.parse(localStorage.counts)[0] || undefined
+        counts: JSON.parse(localStorage.counts) || [],
+        // count: JSON.parse(localStorage.counts)[0] || undefined
 }
 
 // FUNCTIONS
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isCount (data: any): data is Count {
-	return ('name' in data && 'value' in data)
+        return ('name' in data && 'value' in data)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isUpdate (data: any): data is Update {
-	return ('data' in data && 'i' in data)
+        return ('data' in data && 'i' in data)
 }
 
 function updateCounts (newCounts: Count[]) {
-	localStorage.setItem('counts', JSON.stringify(newCounts))
+        localStorage.setItem('counts', JSON.stringify(newCounts))
 }
 
 export const countReducer: Reducer<CountState, CountAction> = (
-	state = initialState,
-	action
+        state = initialState,
+        action
 ) => {
-	switch (action.type) {
-	case 'ADD_COUNT':
-		if (isCount(action.payload)) {
-			const payload = action.payload as Count
+        switch (action.type) {
+        case 'ADD_COUNT':
+                if (isCount(action.payload)) {
+                        const payload = action.payload as Count
 
-			if (state.counts.filter(c => c.name === payload.name).length) {
-				console.error('That count already exists!')
-				return state
-			}
+                        if (state.counts.filter(c => c.name === payload.name).length) {
+                                console.error('That count already exists!')
+                                return state
+                        }
 
-			const newState = {
-				...state,
-				counts: [
-					...state.counts,
-					action.payload
-				],
-				count: action.payload
-			}
+                        const newState = {
+                                ...state,
+                                counts: [
+                                        ...state.counts,
+                                        action.payload
+                                ],
+                                count: action.payload
+                        }
 
-			updateCounts(newState.counts)
+                        updateCounts(newState.counts)
 					
-			return newState
-		}
+                        return newState
+                }
 
-		console.error('action.payload is not a Count')
-		return state
-	case 'SET_COUNTS':
-		if (Array.isArray(action.payload)) {
+                console.error('action.payload is not a Count')
+                return state
+        case 'SET_COUNTS':
+                if (Array.isArray(action.payload)) {
 
-			updateCounts(action.payload)
+                        updateCounts(action.payload)
 
-			return {
-				...state,
-				counts: action.payload
-			}
-		}
+                        return {
+                                ...state,
+                                counts: action.payload
+                        }
+                }
 
-		console.error('action.payload is not a Count array')
-		return state
-	case 'SET_COUNT':
-		if (isCount(action.payload)) {
-			return {
-				...state,
-				count: action.payload
-			}
-		}
+                console.error('action.payload is not a Count array')
+                return state
+        case 'SET_COUNT':
+                if (isCount(action.payload)) {
+                        return {
+                                ...state,
+                                count: action.payload
+                        }
+                }
 
-		console.error('action.payload is not a Count')
-		return state
-	case 'UPDATE_COUNT':			
-		if (isCount(action.payload)) {
-			const payload = action.payload as Count
+                console.error('action.payload is not a Count')
+                return state
+        case 'UPDATE_COUNT':			
+                if (isCount(action.payload)) {
+                        const payload = action.payload as Count
 
-			const filtered = state.counts.filter(c => c.name === payload.name)
+                        const filtered = state.counts.filter(c => c.name === payload.name)
 
-			if (!filtered.length) {
-				console.error('That count does not exist!')
-				return state
-			}
+                        if (!filtered.length) {
+                                console.error('That count does not exist!')
+                                return state
+                        }
 
-			const newCounts = [ ...state.counts ]
-			const i = newCounts.indexOf(filtered[0])
+                        const newCounts = [ ...state.counts ]
+                        const i = newCounts.indexOf(filtered[0])
 
-			if (i === -1) {
-				console.error('For some reason, the filtered element is not in newCounts')				
-				return state
-			}
+                        if (i === -1) {
+                                console.error('For some reason, the filtered element is not in newCounts')				
+                                return state
+                        }
 
-			newCounts[i] = action.payload
+                        newCounts[i] = action.payload
 
-			updateCounts(newCounts)
+                        updateCounts(newCounts)
 				
-			return {
-				...state,
-				counts: newCounts,
-				count: action.payload
-			}
-		} else if (isUpdate(action.payload)) {
-			const {
-				i,
-				data
-			} = action.payload
+                        return {
+                                ...state,
+                                counts: newCounts,
+                                count: action.payload
+                        }
+                } else if (isUpdate(action.payload)) {
+                        const {
+                                i,
+                                data
+                        } = action.payload
 
-			if (i === -1) {
-				console.error('Index is not valid (UPDATE_COUNT)')					
-				return state
-			}
+                        if (i === -1) {
+                                console.error('Index is not valid (UPDATE_COUNT)')					
+                                return state
+                        }
 
-			const newCounts = [...state.counts]				
-			newCounts[i] = data
+                        const newCounts = [...state.counts]				
+                        newCounts[i] = data
 
-			updateCounts(newCounts)
+                        updateCounts(newCounts)
 
-			return {
-				...state,
-				counts: newCounts,
-				count: data
-			}
-		}
+                        return {
+                                ...state,
+                                counts: newCounts,
+                                count: data
+                        }
+                }
 
-		return state
-	case 'DELETE_COUNT':
-		if (isCount(action.payload)) {
-			let i: number = state.counts.indexOf(action.payload)
+                return state
+        case 'DELETE_COUNT':
+                if (isCount(action.payload)) {
+                        let i: number = state.counts.indexOf(action.payload)
 
-			if (i > 0) {
-				i--
-			} else {
-				i = 0
-			}
+                        if (i > 0) {
+                                i--
+                        } else {
+                                i = 0
+                        }
 
-			const filtered = state.counts.filter(c => c !== action.payload)
+                        const filtered = state.counts.filter(c => c !== action.payload)
 
-			updateCounts(filtered)
+                        updateCounts(filtered)
 
-			return {
-				...state,
-				counts: filtered,
-				count: filtered[i]
-			}
-		}
+                        return {
+                                ...state,
+                                counts: filtered,
+                                count: filtered[i]
+                        }
+                }
 		
-		return state
-	default:
-		return state
-	}
+                return state
+        default:
+                return state
+        }
 }

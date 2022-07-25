@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bottom-nav {
+        top: calc(100vh - 60px);
+}

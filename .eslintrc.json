@@ -34,6 +34,6 @@
             "error",
             "never"
         ],
-        "indent": ["error", "tab"]
+        "indent": ["error", 8]
     }
 }
